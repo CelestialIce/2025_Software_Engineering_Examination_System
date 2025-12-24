@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.onlinetestbackend.Mapper.RegisterAndLoginMapper">
+        <delete id="cleanCode">
+            Delete from emailcode where email=#{email};
+        </delete>
+
+        <insert id="insertCode">
+            INSERT into emailcode value (#{email},#{code});
+        </insert>
+
+        <select id="checkCode" resultType="string">
+            SELECT code from emailcode where email=#{email};
+        </select>
+</mapper>

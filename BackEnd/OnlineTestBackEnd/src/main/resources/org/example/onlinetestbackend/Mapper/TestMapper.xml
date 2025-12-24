@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.onlinetestbackend.Mapper.TestMapper">
+    <select id="paperCheck" resultType="org.example.onlinetestbackend.pojo.UserToQuestion">
+        select * from test where userid=#{userid};
+    </select>
+
+    <select id="qSelectBy2Major" resultType="org.example.onlinetestbackend.pojo.StorageQuestion">
+        select * from questions where qmajor=#{major1} or qmajor=#{major2};
+    </select>
+
+    <select id="repostQuestions" resultType="org.example.onlinetestbackend.pojo.StorageQuestion">
+        select A.qid qid,A.qmajor qmajor,A.qtype qtype,A.qcontent qcontent,A.qanswer qanswer,A.qimg qimg,B.userAnswer useranswer from
+        (select * from questions where qid in
+        <foreach collection="qids" item="qid" separator="," open="(" close=")">
+            #{qid}
+        </foreach>) A
+        ,
+        (select * from test where qid in
+        <foreach collection="qids" item="qid" separator="," open="(" close=")">
+            #{qid}
+        </foreach>
+        AND userid=#{userid}) B
+        where A.qid=B.qid;
+    </select>
+
+    <insert id="testCreate">
+        insert into test(userid, qid, qAnswer) VALUE
+        <foreach collection="questions" item="storageQuestion" separator=",">
+            (#{userid},#{storageQuestion.qid},#{storageQuestion.qanswer})
+        </foreach>;
+    </insert>
+
+    <update id="answerSave">
+        update test set userAnswer=#{useranswer} where userid=#{userid} and qid=#{qid};
+    </update>
+
+    <select id="questionCorrect" resultType="int">
+        select count(*) from test where userid=#{userid} and userAnswer=qAnswer ;
+    </select>
+
+    <delete id="testOver">
+        delete from test where  userid=#{userid};
+    </delete>
+</mapper>

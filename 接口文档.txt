@@ -1,0 +1,325 @@
+1.登录
+（1）Url
+测试时：localhost/login
+实际使用时：服务器IP/login
+（2）请求参数
+①username（必填）
+②password（必填）
+（3）后端响应示例
+{
+"success":1,			
+"data":（令牌）
+}
+
+2.用户数据增加
+（1）Url
+测试时：localhost:81/accountInsert
+实际使用时：服务器IP:81/accountInsert
+（2）请求参数
+①username（必填）		//userid自动生成
+②phone（选填）
+③email（选填）
+④password（必填）
+（3）后端响应示例
+{
+"success":1,			//1表成功，0表失败
+"data":null
+}
+
+3.用户数据删除
+（1）Url
+测试时：localhost:81/accountDelete
+实际使用时：服务器IP:81/accountDelete
+（2）请求参数
+①userid
+②userid
+.......
+要求支持批量删除
+（3）后端响应示例
+{
+"success":1,			//1表成功，0表失败
+"data":null
+}
+
+4.用户数据修改
+（1）Url
+测试时：localhost:81/accountUpdate
+实际使用时：服务器IP:81/accountUpdate
+（2）请求参数
+①userid（必填）		//userid不可更改，但需要填入要进行更改的的用户的id
+②username（选填）		
+③phone（选填）
+④email（选填）
+⑤password（选填）
+以上参数需要设置默认的初始值为原数据
+（3）后端响应示例
+{
+"success":1,			//1表成功，0表失败
+"data":null
+}
+
+
+5.用户数据查询
+（1）Url
+测试时：localhost:81/accountSelect
+实际使用时：服务器IP:81/accountSelect
+（2）请求参数
+①userid（选填）
+②username（选填）
+③phone（选填）
+④email（选填）
+⑤password（选填）
+⑥admin (选填)
+（3）后端响应示例
+{
+"success":1
+"data":{
+"userid":"114514",
+"username":"mafty",
+"phone":"1145141919",
+"email":"1145141919@qq.com",
+"password":"1145141919810",
+"admin":1 	//1表示管理员，0表示普通用户
+}
+}
+
+6.试题增加
+（1）Url
+测试时：localhost:81/qInsert
+实际使用时：服务器IP:81/qInsert
+（2）请求参数
+①qmajor（必填）		//qid自动生成无需填写
+②qtype（必填）
+③qcontent（必填）
+④qchoice（必填）
+⑤qanswer（必填）
+⑥img（选填）			//这里上传图片给后端，后端接收存储到本地文件，之后前端的数据请求后端会返回本地文件地址给前端直接访问
+（3）后端响应示例
+{
+"success":1,			//1表成功，0表失败
+"data":null
+}
+
+7.试题删除
+（4）Url
+测试时：localhost:81/qDelete
+实际使用时：服务器IP:81/qDelete
+（5）请求参数
+①qid
+②qid
+.......
+要求支持批量删除
+（6）后端响应示例
+{
+"success":1,			//1表成功，0表失败
+"data":null
+}
+
+8.试题修改
+（1）Url
+测试时：localhost:81/qUpdate
+实际使用时：服务器IP:81/qUpdate
+（2）请求参数
+①qid（必填）			//qid不可更改，但需要填入要更改的题目的qid
+②qmajor（选填）
+③qtype（选填）
+④qcontent（选填
+⑤qchoice（必填）
+⑥qanswer（选填）
+⑦img（选填）
+以上参数需要设置默认的初始值为原数据
+（3）后端响应示例
+{
+"success":1,			//1表成功，0表失败
+"data":null
+}
+
+9.试题查询
+（1）Url
+测试时：localhost:81/qSelect
+实际使用时：服务器IP:81/qSelect
+（2）请求参数
+①qid（选填）
+②qmajor（选填）
+③qtype（选填）
+④qcontent（选填）
+⑤qchoice（必填）
+⑥qanswer（选填）
+（3）后端响应示例
+{
+    "success": 1,
+    "data": [
+        {
+            "qid": 1,
+            "qmajor": "math",
+            "qtype": 0,
+            "qcontent": "我是真的考研人吗",
+            "qchoice": [
+                "是",
+                "不是"
+            ],
+            "qanswer": "A",
+            "qimg": null,
+            "useranswer": null
+        },
+        {
+            "qid": 2,
+            "qmajor": "english",
+            "qtype": 1,
+            "qcontent": "原神",
+            "qchoice": [
+                "好",
+                "很好",
+                "非常好",
+                "特别好"
+            ],
+            "qanswer": "D",
+            "qimg": null,
+            "useranswer": null
+        },
+        {
+            "qid": 5,
+            "qmajor": "english",
+            "qtype": 1,
+            "qcontent": "谁策划了9.11事件",
+            "qchoice": [
+                "孙笑川",
+                "陈睿",
+                "GoodEvening",
+                "哈基米"
+            ],
+            "qanswer": "A",
+            "qimg": null,
+            "useranswer": null
+        }
+    ]
+}
+//专业之间用"/"分割，0是非，1单选，2多选，单选就传单个字母比如"A"，如果是多选就传多个比如"ABC"，判断题传"A"表正确，传"B"表错误
+
+10.查询是否有未完成的试卷（不加专业参数）
+（1）Url
+测试时：localhost:81/paperExistCheck
+实际使用时：服务器IP:81/paperExistCheck
+（2）请求参数
+①userid
+（3）后端响应示例
+{						//存在未完成试卷的示例
+    "success": 1,
+    "data": [
+        {
+            "qid": 1,
+            "qmajor": "math",
+            "qtype": 0,
+            "qcontent": "我是真的考研人吗",
+            "qchoice": [
+                "是",
+                "不是"
+            ],
+            "qanswer": "A",
+            "qimg": null,
+            "useranswer": null
+        },
+        {
+            "qid": 2,
+            "qmajor": "english",
+            "qtype": 1,
+            "qcontent": "原神",
+            "qchoice": [
+                "好",
+                "很好",
+                "非常好",
+                "特别好"
+            ],
+            "qanswer": "D",
+            "qimg": null,
+            "useranswer": null
+        },
+        {
+            "qid": 5,
+            "qmajor": "english",
+            "qtype": 1,
+            "qcontent": "谁策划了9.11事件",
+            "qchoice": [
+                "孙笑川",
+                "陈睿",
+                "GoodEvening",
+                "哈基米"
+            ],
+            "qanswer": "A",
+            "qimg": null,
+            "useranswer": null
+        }
+    ]
+}
+
+{								//此为没有的案例
+    "success": 0,
+    "data": "不存在已创建的试卷"
+}
+							
+11.从头进入考试（加入专业参数）
+（1）Url
+测试时：localhost:81/testEnter
+实际使用时：服务器IP:81/testEnter
+（2）请求参数
+①userid
+②major
+（3）后端响应示例
+{
+    "success": 1,
+    "data": [
+        {
+            "qid": 1,
+            "qmajor": "math/chinese",
+            "qtype": 0,
+            "qcontent": "我是真的考研人吗",
+            "qanswer": "A",
+            "qimg": null,
+            "useranswer": null
+        },
+        {
+            "qid": 3,
+            "qmajor": "computerScience/genshinImpact",
+            "qtype": 2,
+            "qcontent": "米哈游的游戏有A.鸣潮 B.王者荣耀 C.原神 D.绝区零",
+            "qanswer": "ABC",
+            "qimg": null,
+            "useranswer": null
+        },
+        {
+            "qid": 4,
+            "qmajor": "math/english",
+            "qtype": 0,
+            "qcontent": "你能分的清这是现实吗？A.能 B.不能",
+            "qanswer": "B",
+            "qimg": null,
+            "useranswer": null
+        }
+    ]
+}
+
+12.用户作答保存（点击上一题/下一题/提交时对当页作答进行保存）
+（7）Url
+测试时：localhost:81/answerSave
+实际使用时：服务器IP:81/answerSave
+（8）请求参数
+①rid
+②useranswer
+（9）后端响应示例
+{
+"success":1,			//1表成功，0表失败
+"data":null
+}
+
+
+13.试题提交
+（1）Url
+测试时：localhost:81/paperSubmit
+实际使用时：服务器IP:81/paperSubmit
+（2）请求参数
+①userid
+（3）后端响应示例
+{
+    "success": 1,
+    "data": 33.3 			//此为分数
+}

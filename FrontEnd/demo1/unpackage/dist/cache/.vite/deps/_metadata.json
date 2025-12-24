@@ -1,0 +1,15 @@
+{
+  "hash": "08deb0eb",
+  "configHash": "555d5b93",
+  "lockfileHash": "8507c699",
+  "browserHash": "4c3d939a",
+  "optimized": {
+    "flyio/dist/npm/fly": {
+      "src": "../../../../../node_modules/flyio/dist/npm/fly.js",
+      "file": "flyio_dist_npm_fly.js",
+      "fileHash": "3dd744f3",
+      "needsInterop": true
+    }
+  },
+  "chunks": {}
+}
